@@ -1,7 +1,7 @@
 var ds;
 (function ($) {
   $(function () {
-    $.get("/test/ajax/ds", function (data) {
+    $.get("ajax/ds", function (data) {
       ds = data;
       var oc = $('#chart-container').orgchart({
         'data': ds,
