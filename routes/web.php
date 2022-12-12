@@ -23,24 +23,23 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::get('/ajax/ds', function () {
-    $users = User::with([
-        'children',
-        'children.children',
-        'children.children.children',
-        'children.children.children.children',
-        'children.children.children.children.children',
-        'children.children.children.children.children.children',
-        'children.children.children.children.children.children.children',
-        'children.children.children.children.children.children.children.children',
-        'children.children.children.children.children.children.children.children.children'
-        ])->where('id', Auth::user()->id)->first();
-        return $users;
+    for ($i = 1; $i <= 10; $i++) {
+        $str = '';
+        for ($j = 1; $j <= $i; $j++) {
+            $str .= 'children.';
+        }
+        $relation[] = substr($str, 0, strlen($str) - 1);
+    }
+    $users = User::with($relation)->where('id', Auth::user()->id)->first();
+    return $users;
 });
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

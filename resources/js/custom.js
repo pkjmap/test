@@ -6,7 +6,7 @@ var ds;
       var oc = $('#chart-container').orgchart({
         'data': ds,
         'nodeContent': 'points',
-        'direction': 'top',
+        'direction': 't2b',
         'pan': true
       });
     });
