@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ImportController;
 use Illuminate\Support\Facades\Route;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,8 @@ Route::get('/ajax/ds', function () {
     $users = User::with($relation)->where('id', Auth::user()->id)->first();
     return $users;
 });
+
+Route::get('/import', [ImportController::class, 'import']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
