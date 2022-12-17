@@ -34,6 +34,7 @@ class CSVImportProcess implements ShouldQueue
      */
     public function handle()
     {
+        set_time_limit(0);//infinity
         foreach ($this->data as $sale) {
             $saleData = array_combine($this->header, $sale);
             Sales::create($saleData);
