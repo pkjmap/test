@@ -16,7 +16,7 @@ class ImportController extends Controller
         foreach ($files as $key => $file) {
             $data = array_map('str_getcsv', file($file));
             if ($key === 0) {
-                $header = array_change_key_case($data[0], CASE_LOWER);
+                $header = array_map('strtolower', $data[0]); //table fields must be lowercase
                 unset($data[0]);
             }
             CSVImportProcess::dispatch($data, $header);
